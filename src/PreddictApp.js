@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import styled from "styled-components";
 
-const MainPage = () => <div>Main Page</div>;
+import MainPage from "./MainPage";
 const Watching = () => <div>Watching Page</div>;
 
 const AppWrapper = styled.div`
@@ -33,10 +33,14 @@ class PreddictApp extends Component {
         <AppWrapper>
           <Navigation>
             <Link to="/" title="Go Home">
-              🏡
+              <span role="img" aria-label="Go Home">
+                🏡
+              </span>
             </Link>
             <Link to="/watching" title="Go to Watching">
-              👀
+              <span role="img" aria-label="Go to Watching">
+                👀
+              </span>
             </Link>
           </Navigation>
           <Switch>
