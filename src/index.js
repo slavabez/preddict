@@ -1,7 +1,4 @@
-import preact from "preact";
+import './style';
+import App from './components/app';
 
-import PreddictApp from "./Preddict";
-
-const app = document.getElementById("app");
-
-preact.render(<PreddictApp />, app);
+export default App;
