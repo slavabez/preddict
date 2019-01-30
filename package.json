@@ -10,8 +10,12 @@
     "start": "parcel index.html"
   },
   "dependencies": {
-    "parcel-bundler": "^1.11.0",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0"
+    "preact": "^8.4.2",
+    "preact-compat": "^3.18.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "babel-preset-preact": "^1.1.0",
+    "parcel-bundler": "^1.11.0"
   }
 }

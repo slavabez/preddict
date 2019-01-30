@@ -1,10 +1,7 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import preact from "preact";
 
-const App = () => {
-  return <div>I'm the app</div>;
-};
+import PreddictApp from "./Preddict";
 
 const app = document.getElementById("app");
 
-ReactDOM.render(<App />, app);
+preact.render(<PreddictApp />, app);
