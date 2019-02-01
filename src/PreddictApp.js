@@ -1,8 +1,16 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  NavLink,
+  Switch
+} from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 
 import theme from "./style/themes";
+
+import { ReactComponent as EyeSvg } from "./static/eye.svg";
+import { ReactComponent as HouseSvg } from "./static/house.svg";
 
 import MainPage from "./MainPage";
 const Watching = () => <div>Watching Page</div>;
@@ -15,8 +23,8 @@ const AppWrapper = styled.div`
   background-color: ${props => props.theme.bg};
   background: linear-gradient(
     to right,
-    ${props => props.theme.gr1},
-    ${props => props.theme.gr2}
+    ${props => props.theme.a},
+    ${props => props.theme.a}
   );
 `;
 
@@ -24,10 +32,15 @@ const Navigation = styled.nav`
   display: flex;
   flex-direction: column;
   padding: 5px;
+  background-color: ${props => props.theme.b};
   a {
     font-size: 4rem;
     text-decoration: none;
     padding: 0.5rem;
+  }
+
+  a.active {
+    background-color: white;
   }
 `;
 
@@ -42,16 +55,20 @@ class PreddictApp extends Component {
         <ThemeProvider theme={theme}>
           <AppWrapper>
             <Navigation>
-              <Link to="/" title="Go Home">
+              <NavLink exact to="/" title="Go Home" activeClassName="active">
                 <span role="img" aria-label="Go Home">
-                  🏡
+                  <HouseSvg />
                 </span>
-              </Link>
-              <Link to="/watching" title="Go to Watching">
+              </NavLink>
+              <NavLink
+                to="/watching"
+                title="Go to Watching"
+                activeClassName="active"
+              >
                 <span role="img" aria-label="Go to Watching">
-                  👀
+                  <EyeSvg />
                 </span>
-              </Link>
+              </NavLink>
             </Navigation>
             <Switch>
               <Content>
