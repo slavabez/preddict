@@ -14,16 +14,59 @@ const PostContainer = styled.div`
 `;
 
 const PostImage = styled.img`
-  max-width: 140px;
+  max-width: 100px;
+`;
+
+const About = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  h2 {
+    font-size: 1.8rem;
+    margin-right: 1rem;
+  }
+
+  span {
+    font-size: 1.2rem;
+  }
+`;
+
+const Heading = styled.div`
+  display: flex;
+  align-items: center;
+
+  & > * {
+    margin: 0.2rem;
+  }
+
+  a {
+    padding: 0.2rem 0.4rem;
+    color: ${props => props.theme.d};
+    border: 1px solid ${props => props.theme.d};
+    border-radius: 0.5rem;
+  }
+`;
+
+const SubName = styled.span`
+  color: ${props => props.theme.c};
 `;
 
 const Post = props => (
   <PostContainer>
     <PostImage src={props.thumbnail || thumbnail} />
-    <div>
-      <h2>{props.title || "The title of the post"}</h2>
+    <About>
+      <Heading>
+        <h2>{props.title || "The title of the post"}</h2>
+        <SubName>/r/funny</SubName>
+        <a href="https://reddit.com" target="_blank" rel="noopener noreferrer">
+          see on reddit
+        </a>
+      </Heading>
+
       <span>{props.link || "The link to the post"}</span>
-    </div>
+    </About>
     <p>Vote</p>
   </PostContainer>
 );

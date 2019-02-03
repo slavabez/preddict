@@ -23,6 +23,12 @@ const PopularSubContainer = styled.div`
 `;
 const PopularSub = styled.span`
   font-size: 1.2rem;
+  padding: 0.5rem;
+  border: 1px solid ${props => props.theme.b};
+  border-radius: 0.5rem;
+  text-align: center;
+  background-color: ${props => props.theme.f};
+  color: ${props => props.theme.a};
 `;
 const SearchForm = styled.form`
   border-radius: 0.25rem;
@@ -47,7 +53,8 @@ export default class SearchBar extends Component {
           <SearchInput type="text" placeholder="Subreddit name here..." />
         </SearchForm>
         <PopularSubContainer>
-          <PopularSub>/r/funny</PopularSub>
+          <PopularSub>/r/all</PopularSub>
+          <PopularSub>/r/Funny</PopularSub>
           <PopularSub>/r/Aww</PopularSub>
           <PopularSub>/r/ShowerThoughts</PopularSub>
           <PopularSub>/r/LifeHacks</PopularSub>
