@@ -8,6 +8,9 @@ const PostContainer = styled.div`
   display: grid;
   grid-template: 1fr / auto 1fr auto;
   grid-gap: 0.5rem;
+  align-items: center;
+  border-bottom: 2px solid white;
+  padding: 1rem;
 `;
 
 const PostImage = styled.img`

@@ -9,8 +9,8 @@ import styled, { ThemeProvider } from "styled-components";
 
 import theme from "./style/themes";
 
-import { ReactComponent as EyeSvg } from "./static/eye.svg";
-import { ReactComponent as HouseSvg } from "./static/house.svg";
+import EyeSvg from "./svgs/Eye";
+import HouseSvg from "./svgs/House";
 
 import MainPage from "./MainPage";
 const Watching = () => <div>Watching Page</div>;
@@ -26,6 +26,8 @@ const AppWrapper = styled.div`
     ${props => props.theme.a},
     ${props => props.theme.a}
   );
+
+  color: ${props => props.theme.d};
 `;
 
 const Navigation = styled.nav`
@@ -37,10 +39,11 @@ const Navigation = styled.nav`
     font-size: 4rem;
     text-decoration: none;
     padding: 0.5rem;
+    border-right: 2px solid transparent;
   }
 
   a.active {
-    background-color: white;
+    border-right: 2px solid ${props => props.theme.c};
   }
 `;
 
@@ -57,7 +60,7 @@ class PreddictApp extends Component {
             <Navigation>
               <NavLink exact to="/" title="Go Home" activeClassName="active">
                 <span role="img" aria-label="Go Home">
-                  <HouseSvg />
+                  <HouseSvg color={theme.c} />
                 </span>
               </NavLink>
               <NavLink
@@ -66,7 +69,7 @@ class PreddictApp extends Component {
                 activeClassName="active"
               >
                 <span role="img" aria-label="Go to Watching">
-                  <EyeSvg />
+                  <EyeSvg color={theme.c} />
                 </span>
               </NavLink>
             </Navigation>
