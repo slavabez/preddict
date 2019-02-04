@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import axios from "axios";
 
 import thumbnail from "./static/reddit_thumb.png";
 
@@ -46,6 +47,7 @@ const Heading = styled.div`
     color: ${props => props.theme.d};
     border: 1px solid ${props => props.theme.d};
     border-radius: 0.5rem;
+    text-decoration: none;
   }
 `;
 
@@ -59,17 +61,18 @@ const Post = props => (
     <About>
       <Heading>
         <h2>{props.title || "The title of the post"}</h2>
-        <SubName>/r/funny</SubName>
-        <a href="https://reddit.com" target="_blank" rel="noopener noreferrer">
+        <SubName>{props.subreddit || `/r/all`}</SubName>
+        <a href={props.link || `https://reddit.com`} target="_blank" rel="noopener noreferrer">
           see on reddit
         </a>
       </Heading>
 
       <span>{props.link || "The link to the post"}</span>
     </About>
-    <p>Vote</p>
+    <button>Vote</button>
   </PostContainer>
 );
+
 
 PointerEvent.propTypes = {
   thumbnail: PropTypes.string,
@@ -80,6 +83,19 @@ PointerEvent.propTypes = {
 const List = styled.div``;
 
 export default class PostList extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      posts: []
+    };
+  }
+
+  async componentDidMount(){
+    const posts = await axios.get(`https://www.reddit.com/r/all/new.json`);
+    this.setState({ posts: posts });
+  }
+
   render() {
     return (
       <List>
