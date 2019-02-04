@@ -55,14 +55,26 @@ const SubName = styled.span`
   color: ${props => props.theme.c};
 `;
 
+const noThumbnailValues = ["default", "self", "nsfw"];
+
 const Post = props => (
   <PostContainer>
-    <PostImage src={props.thumbnail || thumbnail} />
+    <PostImage
+      src={
+        noThumbnailValues.includes(props.thumbnail)
+          ? thumbnail
+          : props.thumbnail
+      }
+    />
     <About>
       <Heading>
         <h2>{props.title || "The title of the post"}</h2>
         <SubName>{props.subreddit || `/r/all`}</SubName>
-        <a href={props.link || `https://reddit.com`} target="_blank" rel="noopener noreferrer">
+        <a
+          href={props.link || `https://reddit.com`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           see on reddit
         </a>
       </Heading>
@@ -73,17 +85,16 @@ const Post = props => (
   </PostContainer>
 );
 
-
-PointerEvent.propTypes = {
+Post.propTypes = {
   thumbnail: PropTypes.string,
   title: PropTypes.string,
+  subreddit: PropTypes.string,
   link: PropTypes.string
 };
 
 const List = styled.div``;
 
 export default class PostList extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -91,18 +102,35 @@ export default class PostList extends Component {
     };
   }
 
-  async componentDidMount(){
+  async componentDidMount() {
     const posts = await axios.get(`https://www.reddit.com/r/all/new.json`);
-    this.setState({ posts: posts });
+    this.setState({ posts: posts.data.data.children });
+  }
+
+  renderPosts() {
+    return this.state.posts.map(p => (
+      <Post
+        key={p.id}
+        thumbnail={p.thumbnail}
+        title={p.title}
+        subreddit={p.subreddit}
+        link={p.url}
+      />
+    ));
   }
 
   render() {
     return (
       <List>
-        <Post />
-        <Post />
-        <Post />
-        <Post />
+        {this.state.posts.map(p => (
+          <Post
+            key={p.data.id}
+            thumbnail={p.data.thumbnail}
+            title={p.data.title}
+            subreddit={p.data.subreddit}
+            link={p.data.url}
+          />
+        ))}
       </List>
     );
   }
