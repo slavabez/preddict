@@ -17,16 +17,15 @@ const SearchInput = styled.input`
 `;
 const PopularSubContainer = styled.div`
   margin: 0.5rem 0;
-  display: grid;
-  grid-template-columns: repeat(12, minmax(35px, auto));
-  grid-gap: 1rem;
+  display: flex;
+  flex-wrap: wrap;
 `;
-const PopularSub = styled.span`
+const PopularSub = styled.button`
   font-size: 1.2rem;
   padding: 0.5rem;
+  margin: 0.2rem 0.2rem;
   border: 1px solid ${props => props.theme.b};
   border-radius: 0.5rem;
-  text-align: center;
   background-color: ${props => props.theme.f};
   color: ${props => props.theme.a};
 `;
@@ -53,6 +52,21 @@ export default class SearchBar extends Component {
           <SearchInput type="text" placeholder="Subreddit name here..." />
         </SearchForm>
         <PopularSubContainer>
+          <PopularSub>/r/all</PopularSub>
+          <PopularSub>/r/Funny</PopularSub>
+          <PopularSub>/r/Aww</PopularSub>
+          <PopularSub>/r/ShowerThoughts</PopularSub>
+          <PopularSub>/r/LifeHacks</PopularSub>
+          <PopularSub>/r/all</PopularSub>
+          <PopularSub>/r/Funny</PopularSub>
+          <PopularSub>/r/Aww</PopularSub>
+          <PopularSub>/r/ShowerThoughts</PopularSub>
+          <PopularSub>/r/LifeHacks</PopularSub>
+          <PopularSub>/r/all</PopularSub>
+          <PopularSub>/r/Funny</PopularSub>
+          <PopularSub>/r/Aww</PopularSub>
+          <PopularSub>/r/ShowerThoughts</PopularSub>
+          <PopularSub>/r/LifeHacks</PopularSub>
           <PopularSub>/r/all</PopularSub>
           <PopularSub>/r/Funny</PopularSub>
           <PopularSub>/r/Aww</PopularSub>
