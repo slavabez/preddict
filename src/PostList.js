@@ -36,7 +36,7 @@ const ToggleButton = styled.button`
 
 class PostList extends Component {
   async componentDidMount() {
-    const posts = await axios.get(`/sample.json`);
+    const posts = await axios.get(`https://reddit.com/r/all/new.json`);
     mainState.posts = posts.data.data.children;
   }
 

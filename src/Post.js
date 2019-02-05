@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { view } from "react-easy-state";
-
-import MainStore from "./stores/main";
 import thumbnail from "./static/reddit_thumb.png";
 import nsfwThumbnail from "./static/reddit_nsfw_thumb.png";
 
