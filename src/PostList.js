@@ -15,7 +15,7 @@ export default class PostList extends Component {
   }
 
   async componentDidMount() {
-    const posts = await axios.get(`https://www.reddit.com/r/all/new.json`);
+    const posts = await axios.get(`/sample.json`);
     this.setState({ posts: posts.data.data.children });
   }
 

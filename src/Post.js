@@ -3,14 +3,20 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 
 import thumbnail from "./static/reddit_thumb.png";
+import ExpandSvg from "./svgs/Expand";
 
 const PostContainer = styled.div`
   display: grid;
-  grid-template: 1fr / auto 1fr auto;
+  grid-template: 1fr / auto 1fr;
   grid-gap: 0.5rem;
   align-items: center;
   border-bottom: 2px solid white;
   padding: 1rem;
+
+  svg {
+    width: 50px;
+    fill: ${props => props.theme.c};
+  }
 `;
 
 const PostImage = styled.img`
@@ -22,18 +28,15 @@ const About = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-
-  h2 {
-    font-size: 1.8rem;
-    margin-right: 1rem;
-  }
-
-  span {
-    font-size: 1.2rem;
-  }
 `;
 
-const Heading = styled.div`
+const HeaderLink = styled.a`
+  font-size: 1.8rem;
+  text-decoration: none;
+  color: ${props => props.theme.e};
+`;
+
+const InfoSection = styled.div`
   display: flex;
   align-items: center;
 
@@ -54,7 +57,9 @@ const SubName = styled.span`
   color: ${props => props.theme.c};
 `;
 
-const noThumbnailValues = ["default", "self", "nsfw", "image"];
+const VoteButtons = styled.div``;
+
+const noThumbnailValues = ["default", "self", "nsfw", "image", "spoiler"];
 
 class Post extends Component {
   render() {
@@ -68,9 +73,15 @@ class Post extends Component {
           }
         />
         <About>
-          <Heading>
-            <h2>{this.props.title || "The title of the post"}</h2>
-            <SubName>{this.props.subreddit || `/r/all`}</SubName>
+          <HeaderLink
+            href={this.props.link}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {this.props.title || "The title of the post"}
+          </HeaderLink>
+          <InfoSection>
+            <SubName>{`/r/` + this.props.subreddit || `all`}</SubName>
             <a
               href={this.props.link || `https://reddit.com`}
               target="_blank"
@@ -78,11 +89,15 @@ class Post extends Component {
             >
               see on reddit
             </a>
-          </Heading>
-
-          <span>{this.props.link || "The link to the post"}</span>
+            <VoteButtons>
+              <button>inb4 Front page</button>
+              <button>Gonna explode</button>
+              <button>Will do ok</button>
+              <button>No move</button>
+              <button>Sucks</button>
+            </VoteButtons>
+          </InfoSection>
         </About>
-        <button>Vote</button>
       </PostContainer>
     );
   }
