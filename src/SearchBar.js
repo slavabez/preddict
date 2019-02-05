@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import styled from "styled-components";
 
 import SearchSvg from "./svgs/Search";
+import { view } from "react-easy-state";
+
+import mainState from "./stores/main";
 
 const Wrapper = styled.div`
   padding: 1rem;
@@ -20,14 +23,15 @@ const PopularSubContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
 `;
-const PopularSub = styled.button`
+const PopularSubButton = styled.button`
   font-size: 1.2rem;
   padding: 0.5rem;
   margin: 0.2rem 0.2rem;
   border: 1px solid ${props => props.theme.b};
   border-radius: 0.5rem;
-  background-color: ${props => props.theme.f};
-  color: ${props => props.theme.a};
+  background-color: ${props => props.theme.g};
+  color: ${props => props.theme.main};
+  cursor: pointer;
 `;
 const SearchForm = styled.form`
   border-radius: 0.25rem;
@@ -43,37 +47,85 @@ const SearchForm = styled.form`
   }
 `;
 
-export default class SearchBar extends Component {
+const popularSubs = [
+  "all",
+  "funny",
+  "AskReddit",
+  "gaming",
+  "pics",
+  "science",
+  "worldnews",
+  "todayilearned",
+  "videos",
+  "movies",
+  "aww",
+  "IAmA",
+  "Music",
+  "gifs",
+  "news",
+  "EarthPorn"
+];
+
+class SearchErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, errorText: "" };
+  }
+
+  static getDerivedStateFromError(error) {
+    console.error(error);
+    return { hasError: true, errorText: error };
+  }
+
+  componentDidCatch(error, info) {
+    // Log error to Sentry
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <SearchBar error={this.state.errorText} />;
+    }
+    return <SearchBar />;
+  }
+}
+
+class SearchBar extends Component {
   render() {
     return (
       <Wrapper>
         <SearchForm>
-          <SearchSvg color="#5CF0F7" />
-          <SearchInput type="text" placeholder="Subreddit name here..." />
+          <label htmlFor="subSearch">
+            <SearchSvg color="#5CF0F7" />
+          </label>
+          <SearchInput
+            id="subSearch"
+            type="text"
+            placeholder="Get new posts from a subreddit..."
+          />
         </SearchForm>
         <PopularSubContainer>
-          <PopularSub>/r/all</PopularSub>
-          <PopularSub>/r/Funny</PopularSub>
-          <PopularSub>/r/Aww</PopularSub>
-          <PopularSub>/r/ShowerThoughts</PopularSub>
-          <PopularSub>/r/LifeHacks</PopularSub>
-          <PopularSub>/r/all</PopularSub>
-          <PopularSub>/r/Funny</PopularSub>
-          <PopularSub>/r/Aww</PopularSub>
-          <PopularSub>/r/ShowerThoughts</PopularSub>
-          <PopularSub>/r/LifeHacks</PopularSub>
-          <PopularSub>/r/all</PopularSub>
-          <PopularSub>/r/Funny</PopularSub>
-          <PopularSub>/r/Aww</PopularSub>
-          <PopularSub>/r/ShowerThoughts</PopularSub>
-          <PopularSub>/r/LifeHacks</PopularSub>
-          <PopularSub>/r/all</PopularSub>
-          <PopularSub>/r/Funny</PopularSub>
-          <PopularSub>/r/Aww</PopularSub>
-          <PopularSub>/r/ShowerThoughts</PopularSub>
-          <PopularSub>/r/LifeHacks</PopularSub>
+          {popularSubs.map(s => (
+            <PopularSub
+              key={s}
+              subName={s}
+              onClick={() => {
+                mainState.loadSub(s);
+              }}
+            />
+          ))}
         </PopularSubContainer>
       </Wrapper>
     );
   }
 }
+
+const PopularSub = props => (
+  <PopularSubButton
+    title={`Show new posts from /r/${props.subName}`}
+    onClick={props.onClick}
+  >
+    /r/{props.subName}
+  </PopularSubButton>
+);
+
+export default view(SearchErrorBoundary);

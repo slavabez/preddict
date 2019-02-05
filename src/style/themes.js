@@ -10,7 +10,8 @@ const dark = {
   c: "#5CF0F7",
   d: "#D1E5EC",
   e: "#DCF0F7",
-  f: "#0F9AEE"
+  f: "#0F9AEE",
+  g: "#07888e"
 };
 
 export default dark;

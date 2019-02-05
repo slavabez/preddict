@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import { view } from "react-easy-state";
 
+import MainStore from "./stores/main";
 import thumbnail from "./static/reddit_thumb.png";
+import nsfwThumbnail from "./static/reddit_nsfw_thumb.png";
 
 const PostContainer = styled.div`
   display: grid;
@@ -62,15 +65,14 @@ const noThumbnailValues = ["default", "self", "nsfw", "image", "spoiler"];
 
 class Post extends Component {
   render() {
+    const thumb = this.props.nsfw
+      ? nsfwThumbnail
+      : noThumbnailValues.includes(this.props.thumbnail)
+      ? thumbnail
+      : this.props.thumbnail;
     return (
       <PostContainer>
-        <PostImage
-          src={
-            noThumbnailValues.includes(this.props.thumbnail)
-              ? thumbnail
-              : this.props.thumbnail
-          }
-        />
+        <PostImage src={thumb} />
         <About>
           <HeaderLink
             href={this.props.link}
@@ -106,7 +108,9 @@ Post.propTypes = {
   thumbnail: PropTypes.string,
   title: PropTypes.string,
   subreddit: PropTypes.string,
-  link: PropTypes.string
+  link: PropTypes.string,
+  url: PropTypes.string,
+  nsfw: PropTypes.bool
 };
 
 export default Post;
