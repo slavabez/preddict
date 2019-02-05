@@ -6,11 +6,14 @@ import Post from "./Post";
 
 const List = styled.div``;
 
+const ControlsList = styled.div``;
+
 export default class PostList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: []
+      posts: [],
+      showNSFW: false
     };
   }
 
@@ -18,6 +21,12 @@ export default class PostList extends Component {
     const posts = await axios.get(`/sample.json`);
     this.setState({ posts: posts.data.data.children });
   }
+
+  toggleNSFWFilter = () => {
+    this.setState(oldState => ({
+      showNSFW: !oldState.showNSFW
+    }));
+  };
 
   renderPosts() {
     return this.state.posts.map(p => (
@@ -32,8 +41,12 @@ export default class PostList extends Component {
   }
 
   render() {
+    const toggleText = this.state.showNSFW ? "Hide" : "Show";
     return (
       <List>
+        <ControlsList>
+          <button onClick={this.toggleNSFWFilter}>{toggleText} NSFW</button>
+        </ControlsList>
         {this.state.posts.map(p => (
           <Post
             key={p.data.id}

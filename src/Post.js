@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 
 import thumbnail from "./static/reddit_thumb.png";
-import ExpandSvg from "./svgs/Expand";
 
 const PostContainer = styled.div`
   display: grid;
@@ -20,7 +19,7 @@ const PostContainer = styled.div`
 `;
 
 const PostImage = styled.img`
-  max-width: 100px;
+  max-width: 70px;
 `;
 
 const About = styled.div`
@@ -31,7 +30,7 @@ const About = styled.div`
 `;
 
 const HeaderLink = styled.a`
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   text-decoration: none;
   color: ${props => props.theme.e};
 `;
