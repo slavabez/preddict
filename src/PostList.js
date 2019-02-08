@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import axios from "axios";
 import { view } from "react-easy-state";
 
 import mainState from "./stores/main";
@@ -36,10 +35,9 @@ const ToggleButton = styled.button`
 
 class PostList extends Component {
   async componentDidMount() {
-    const posts = await axios.get(
-      `https://pq75wol035.execute-api.eu-central-1.amazonaws.com/dev/get-reddit-new`
-    );
-    mainState.posts = posts.data.posts;
+    if (!mainState.posts.length) {
+      mainState.loadSub("all");
+    }
   }
 
   loadSubreddit = sub => {};
@@ -47,20 +45,6 @@ class PostList extends Component {
   toggleNSFWFilter = () => {
     mainState.showNSFW = !mainState.showNSFW;
   };
-
-  renderPosts() {
-    return mainState.posts
-      .filter(p => false)
-      .map(p => (
-        <Post
-          key={p.id}
-          thumbnail={p.thumbnail}
-          title={p.title}
-          subreddit={p.subreddit}
-          link={p.url}
-        />
-      ));
-  }
 
   render() {
     const toggleText = mainState.showNSFW ? "Hide" : "Show";
@@ -85,6 +69,7 @@ class PostList extends Component {
               subreddit={p.data.subreddit}
               link={p.data.url}
               nsfw={p.data.over_18}
+              permalink={p.data.permalink}
             />
           ))}
       </List>

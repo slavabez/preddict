@@ -81,7 +81,7 @@ class Post extends Component {
           <InfoSection>
             <SubName>{`/r/` + this.props.subreddit || `all`}</SubName>
             <a
-              href={this.props.link || `https://reddit.com`}
+              href={`https://reddit.com` + this.props.permalink}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -107,7 +107,8 @@ Post.propTypes = {
   subreddit: PropTypes.string,
   link: PropTypes.string,
   url: PropTypes.string,
-  nsfw: PropTypes.bool
+  nsfw: PropTypes.bool,
+  permalink: PropTypes.string
 };
 
 export default Post;
