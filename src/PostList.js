@@ -36,8 +36,10 @@ const ToggleButton = styled.button`
 
 class PostList extends Component {
   async componentDidMount() {
-    const posts = await axios.get(`https://reddit.com/r/all/new.json`);
-    mainState.posts = posts.data.data.children;
+    const posts = await axios.get(
+      `https://pq75wol035.execute-api.eu-central-1.amazonaws.com/dev/get-reddit-new`
+    );
+    mainState.posts = posts.data.posts;
   }
 
   loadSubreddit = sub => {};
