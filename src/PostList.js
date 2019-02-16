@@ -70,6 +70,7 @@ class PostList extends Component {
               link={p.data.url}
               nsfw={p.data.over_18}
               permalink={p.data.permalink}
+              predictFunc={mainState.addToWatching}
             />
           ))}
       </List>

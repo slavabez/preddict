@@ -6,7 +6,7 @@ import theme from "./style/themes";
 
 import Navigation from "./NavigationBar";
 import MainPage from "./MainPage";
-const Watching = () => <div>Watching Page</div>;
+import Watching from "./Watching";
 
 const AppWrapper = styled.div`
   display: grid;

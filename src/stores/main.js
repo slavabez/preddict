@@ -9,6 +9,14 @@ const main = store({
   posts: [],
   watchingPosts: [],
   postsLoading: false,
+  init: () => {
+    // Check if localStorage has threads that are bign watched
+    if (window.localStorage.watching && window.localStorage.length) {
+      this.watchingPosts = window.localStorage.watching;
+    } else {
+      // Initialise with an empty array for future adding
+    }
+  },
   loadSub: async subName => {
     main.postsLoading = true;
     const posts = await axios.get(`${apiEndpoint}?sub=${subName}`);
@@ -16,11 +24,16 @@ const main = store({
     main.filteredSub = subName;
     main.postsLoading = false;
   },
-  addToWatching: post => {
-    main.watchingPosts.push(post);
+  addToWatching: (post, expectation) => {
+    main.watchingPosts.push({
+      expectation,
+      ...post
+    });
+    window.localStorage.watching = main.watching;
   },
   removeFromWatching: postId => {
     main.watchingPosts = main.watchingPosts.filter(post => post.id === postId);
+    window.localStorage.watching = main.watching;
   }
 });
 

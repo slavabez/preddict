@@ -38,6 +38,7 @@ const HeaderLink = styled.a`
 const InfoSection = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
   & > * {
     margin: 0.2rem;
@@ -52,16 +53,34 @@ const InfoSection = styled.div`
   }
 `;
 
-const SubName = styled.span`
-  color: ${props => props.theme.c};
+const InfoInner = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
-const VoteButtons = styled.div``;
+const SubName = styled.span`
+  color: ${props => props.theme.c};
+  padding: 0.2rem;
+`;
+
+const VoteButtons = styled.div`
+  button {
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    margin: 0.2rem 0.2rem;
+    border: 1px solid ${props => props.theme.b};
+    border-radius: 0.5rem;
+    background-color: ${props => props.theme.g};
+    color: ${props => props.theme.main};
+    cursor: pointer;
+  }
+`;
 
 const noThumbnailValues = ["default", "self", "nsfw", "image", "spoiler"];
 
 class Post extends Component {
   render() {
+    // If post is NSFW show red thumbnail, if of the above noThumbnailValues, don't show the thumbnail
     const thumb = this.props.nsfw
       ? nsfwThumbnail
       : noThumbnailValues.includes(this.props.thumbnail)
@@ -79,20 +98,52 @@ class Post extends Component {
             {this.props.title || "The title of the post"}
           </HeaderLink>
           <InfoSection>
-            <SubName>{`/r/` + this.props.subreddit || `all`}</SubName>
-            <a
-              href={`https://reddit.com` + this.props.permalink}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              see on reddit
-            </a>
+            <InfoInner>
+              <SubName>{`/r/` + this.props.subreddit || `all`}</SubName>
+              <a
+                href={`https://reddit.com` + this.props.permalink}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                see on reddit
+              </a>
+            </InfoInner>
             <VoteButtons>
-              <button>inb4 Front page</button>
-              <button>Gonna explode</button>
-              <button>Will do ok</button>
-              <button>No move</button>
-              <button>Sucks</button>
+              <button
+                onClick={() => {
+                  this.props.predictFunc(this.props, 5);
+                }}
+              >
+                inb4 Front page
+              </button>
+              <button
+                onClick={() => {
+                  this.props.predictFunc(this.props, 4);
+                }}
+              >
+                Gonna explode
+              </button>
+              <button
+                onClick={() => {
+                  this.props.predictFunc(this.props, 3);
+                }}
+              >
+                Will do ok
+              </button>
+              <button
+                onClick={() => {
+                  this.props.predictFunc(this.props, 2);
+                }}
+              >
+                No move
+              </button>
+              <button
+                onClick={() => {
+                  this.props.predictFunc(this.props, 1);
+                }}
+              >
+                Sucks
+              </button>
             </VoteButtons>
           </InfoSection>
         </About>
@@ -108,7 +159,8 @@ Post.propTypes = {
   link: PropTypes.string,
   url: PropTypes.string,
   nsfw: PropTypes.bool,
-  permalink: PropTypes.string
+  permalink: PropTypes.string,
+  predictFunc: PropTypes.func
 };
 
 export default Post;
