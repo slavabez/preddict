@@ -27,13 +27,13 @@ const main = store({
   addToWatching: (post, expectation) => {
     main.watchingPosts.push({
       expectation,
-      ...post
+      post
     });
-    window.localStorage.watching = main.watching;
+    window.localStorage.watching = main.watchingPosts;
   },
   removeFromWatching: postId => {
     main.watchingPosts = main.watchingPosts.filter(post => post.id === postId);
-    window.localStorage.watching = main.watching;
+    window.localStorage.watching = main.watchingPosts;
   }
 });
 
